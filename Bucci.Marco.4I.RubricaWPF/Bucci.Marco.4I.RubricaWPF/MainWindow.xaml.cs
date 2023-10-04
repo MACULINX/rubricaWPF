@@ -23,17 +23,32 @@ namespace Bucci.Marco._4I.RubricaWPF
         public MainWindow()
         {
             InitializeComponent();
+        }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
             Contatto c = new Contatto();
-            c.Numero = 1;
+
+            //Qui scateniamo il setter
+            try
+            {
+                c.Numero = 101;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             c.Nome = "Marco";
             c.Cognome = "Bucci";
+
+
+
 
             Contatto[] Contatti = new Contatto[100];
             Contatti[0] = c;
 
-            Contatti[0].Nome = "Eugenio";
-            Contatti[0].Cognome = "Malenchi";
         }
     }
 }
