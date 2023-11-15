@@ -17,9 +17,6 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Bucci.Marco._4I.RubricaWPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -32,11 +29,18 @@ namespace Bucci.Marco._4I.RubricaWPF
             int idx = 0;
             Contatto[] Contatti = new Contatto[100];
 
-            
-
             try
             {
                 StreamReader buffer = new StreamReader("Dati.csv");
+
+                for (int i = 0; i < Contatti.Length; i++)
+                    if (Contatti[i] == null)
+                        Contatti[i] = new Contatto();
+
+                idx = 0;
+
+                buffer.ReadLine();
+
                 while (!buffer.EndOfStream)
                 {
                     string row = buffer.ReadLine();
@@ -50,22 +54,22 @@ namespace Bucci.Marco._4I.RubricaWPF
                 MessageBox.Show(ex.Message);
             }
 
-            for (int i = 0; i < Contatti.Length; i++)
-                if (Contatti[i] == null)
-                    Contatti[i] = new Contatto();
-
             
-            /*
-            Contatto c = new Contatto();
-
-            c.Nome = "Marco";
-            c.Cognome = "Bucci";
-            c.Email = "marco.bucci@studenti.ittsrimini.edu.it";
-
-            Contatti[0] = c;
-            */
-
             dgArray.ItemsSource = Contatti;
+
+        }
+
+        private void dgArray_LoadingRow(object sender, DataGridRowEventArgs e)
+        {
+
+            Contatto? c = e.Row.Item as Contatto;
+            if (c != null)
+                if (c.Numero == 0) 
+                {
+                    e.Row.Background = Brushes.Red;
+                    e.Row.Foreground = Brushes.White;
+                }
+            
 
         }
     }
