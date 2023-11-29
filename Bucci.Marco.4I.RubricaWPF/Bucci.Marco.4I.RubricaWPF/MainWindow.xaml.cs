@@ -49,12 +49,12 @@ namespace Bucci.Marco._4I.RubricaWPF
                     Contatti[idx++] = contatto;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
-            
+
             dgArray.ItemsSource = Contatti;
 
         }
@@ -64,13 +64,17 @@ namespace Bucci.Marco._4I.RubricaWPF
 
             Contatto? c = e.Row.Item as Contatto;
             if (c != null)
-                if (c.Numero == 0) 
+                if (c.Numero == 0)
                 {
                     e.Row.Background = Brushes.Red;
                     e.Row.Foreground = Brushes.White;
                 }
-            
+            if (c.Cellulare != null && c.Cellulare[0] == '3')
+            {
+                e.Row.Background = Brushes.Yellow;
+                e.Row.Foreground = Brushes.Blue;
+            }
 
         }
     }
-}
+} 
